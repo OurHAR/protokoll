@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer Table</title>
+</head>
+<body>
+    <h1>Countdown Timer Table</h1>
+    <button id="saveButton">Save Table State</button>
+    <table border="1">
+        <tr>
+            <td>Walking</td>
+            <td><button class="startButton">L-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">R-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Hand</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">On-Ear</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Bag</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">LB-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">RB-Pocket</button><div class="timerDisplay">00:00</div></td>
+        </tr>
+        <tr>
+            <td>Sitting</td>
+            <td><button class="startButton">L-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">R-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Hand</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">On-Ear</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Bag</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">LB-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">RB-Pocket</button><div class="timerDisplay">00:00</div></td>
+        </tr>
+        <tr>
+            <td>Standing</td>
+            <td><button class="startButton">L-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">R-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Hand</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">On-Ear</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Bag</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">LB-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">RB-Pocket</button><div class="timerDisplay">00:00</div></td>
+        </tr>
+        <tr>
+            <td>Lying Down</td>
+            <td>XXXXX</td>
+            <td>XXXXX</td>
+            <td><button class="startButton">In-Hand</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">On-Ear</button><div class="timerDisplay">00:00</div></td>
+            <td>XXXXX</td>
+            <td>XXXXX</td>
+            <td>XXXXX</td>
+        </tr>
+        <tr>
+            <td>Upstairs</td>
+            <td><button class="startButton">L-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">R-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Hand</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">On-Ear</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Bag</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">LB-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">RB-Pocket</button><div class="timerDisplay">00:00</div></td>
+        </tr>
+        <tr>
+            <td>Downstairs</td>
+            <td><button class="startButton">L-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">R-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Hand</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">On-Ear</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Bag</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">LB-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">RB-Pocket</button><div class="timerDisplay">00:00</div></td>
+        </tr>
+        <tr>
+            <td>NO ACTIVITY</td>
+            <td><button class="startButton">L-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">R-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Hand</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">On-Ear</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">In-Bag</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">LB-Pocket</button><div class="timerDisplay">00:00</div></td>
+            <td><button class="startButton">RB-Pocket</button><div class="timerDisplay">00:00</div></td>
+        </tr>
+    </table>
+
+    <script>
+        let currentCountdown = null;
+        let activeButton = null; // The most recently clicked button (green button)
+        let ongoingButton = null; // The button with the ongoing timer (light blue button)
+        let clickSequence = 1; // Initialize sequence number for clicks
+
+        // Start Countdown and set button colors
+        function startCountdown(button, display, duration) {
+            // If there's an ongoing countdown, we need to reset the button color
+            if (ongoingButton) {
+                ongoingButton.style.backgroundColor = '#90EE90'; // Light Green (previous button)
+            }
+
+            // Set the new clicked button's color to light green (before timer starts)
+            button.style.backgroundColor = '#90EE90'; // Light Green
+            activeButton = button; // Mark this button as the active one
+
+            // Reset the active button color to light blue if there's a previously clicked button
+            if (ongoingButton && ongoingButton !== button) {
+                ongoingButton.style.backgroundColor = '#ADD8E6'; // Light Blue (previous button)
+            }
+
+            // Mark this button as the ongoing timer button (light blue)
+            ongoingButton = button;
+
+            // If there's an active countdown, clear it
+            if (currentCountdown) {
+                clearInterval(currentCountdown.interval);
+            }
+
+            let elapsed = display.getAttribute('data-time') ? parseInt(display.getAttribute('data-time')) : 0;
+            let minutes, seconds;
+
+            // Start a new countdown
+            currentCountdown = { interval: null, display: display, remaining: duration - elapsed };
+
+            currentCountdown.interval = setInterval(function () {
+                minutes = parseInt(elapsed / 60, 10);
+                seconds = parseInt(elapsed % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+                display.setAttribute('data-time', elapsed);
+
+                elapsed++;
+
+                // Timer complete: turn button light red
+                if (elapsed >= duration) {
+                    clearInterval(currentCountdown.interval);
+                    playBeep(); // Play beep sound
+                    button.style.backgroundColor = '#FFB6C1'; // Lighter Red (timer complete)
+                    ongoingButton = null; // No ongoing timer
+                }
+            }, 1000);
+        }
+
+        // Function to reset all button colors except active ones
+        function resetButtonColors() {
+            document.querySelectorAll('.startButton').forEach(button => {
+                // Reset color for buttons that are not active or ongoing
+                if (button !== activeButton && button !== ongoingButton) {
+                    button.style.backgroundColor = ''; // Reset color
+                }
+            });
+        }
+
+        // Beep sound when timer finishes
+        function playBeep() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(1000, audioContext.currentTime); // Frequency in Hz
+            gainNode.gain.setValueAtTime(1, audioContext.currentTime);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5); // Beep duration in seconds
+        }
+
+        // Add event listeners to each start button
+        document.querySelectorAll('.startButton').forEach((button) => {
+            const display = button.nextElementSibling;
+            const rowName = button.closest('tr').cells[0].textContent; // Get the row name
+
+            button.addEventListener('click', function () {
+                startCountdown(button, display, 60); // 60-second timer
+
+                // Create a timestamp and activity (row name)
+                const timestamp = new Date().toISOString();
+                const activity = rowName; // The row name
+                const buttonName = button.textContent; // The button name
+
+                // Store the click data in a global array
+                if (!window.clicks) {
+                    window.clicks = [];
+                }
+
+                const clickData = {
+                    buttonName: buttonName, // Button label
+                    timestamp: timestamp,   // Time of click
+                    activity: activity,     // Row name
+                    sequence: clickSequence++ // Sequence of click
+                };
+
+                // Add click data to array
+                window.clicks.push(clickData);
+
+                console.log(clickData); // Logging the click data
+            });
+        });
+
+        // Save the table state (button states and timer values)
+        document.getElementById('saveButton').addEventListener('click', function () {
+            const timers = document.querySelectorAll('.timerDisplay');
+            let tableState = [];
+
+            timers.forEach(timer => {
+                tableState.push({
+                    buttonName: timer.previousElementSibling.textContent,
+                    time: timer.textContent
+                });
+            });
+
+            // Include the clicks data in the saved JSON
+            tableState.push({
+                clicks: window.clicks
+            });
+
+            const blob = new Blob([JSON.stringify(tableState, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'table_state.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
